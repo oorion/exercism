@@ -9,10 +9,12 @@ var testCases = []struct {
 	expected    bool
 	description string
 }{
-	{1996, true, "a vanilla leap year"},
-	{1997, false, "a normal year"},
-	{1900, false, "a century"},
-	{2400, true, "an exceptional century"},
+	{1996, true, "leap year"},
+	{1997, false, "non-leap year"},
+	{1998, false, "non-leap even year"},
+	{1900, false, "century"},
+	{2400, true, "fourth century"},
+	{2000, true, "Y2K"},
 }
 
 func TestLeapYears(t *testing.T) {
