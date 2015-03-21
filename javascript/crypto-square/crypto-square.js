@@ -38,16 +38,28 @@ Crypto.prototype.ciphertext = function() {
   var cipherText = "";
   var index = 0;
   while (cipherText.length < normalizedPlaintext.length) {
-    square.every(function(element) {
-      if (element[index] == undefined) {
-        return false;
-      } else {
+    square.forEach(function(element) {
+      if (element[index]) {
         cipherText += element[index];
       }
     });
     index++;
   }
   return cipherText;
+}
+
+Crypto.prototype.normalizeCiphertext = function() {
+  var cipherText = this.ciphertext();
+  var size = this.size()
+  var normalizedCiphertext = "";
+  cipherText.split("").forEach(function(element, index, array) {
+    if (index != 0 && index % size == 0) {
+      normalizedCiphertext += " " + element;
+    } else {
+      normalizedCiphertext += element;
+    }
+  });
+  return normalizedCiphertext;
 }
 
 module.exports = Crypto

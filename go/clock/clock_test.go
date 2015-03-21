@@ -33,7 +33,9 @@ func TestCreateClock(t *testing.T) {
 		t.Fatalf("Found TestVersion = %v, want %v", TestVersion, testVersion)
 	}
 	for _, n := range timeTests {
-		if got := Time(n.h, n.m); got.String() != n.want {
+		got := Time(n.h, n.m)
+
+		if got.String() != n.want {
 			t.Fatalf("Time(%d, %d) = %q, want %q", n.h, n.m, got, n.want)
 		}
 	}

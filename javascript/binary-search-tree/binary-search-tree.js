@@ -24,12 +24,14 @@ Bst.prototype.findLeafNode = function(node, data) {
   }
 }
 
+Bst.prototype.findSmallestNumber = function(node) {
+  if (node.left != null) {
+//    this.findSmallectNumbe
+}
+
 Bst.prototype.each = function(callback) {
-
-  callback(this.data);
+//  currentData = 
+  callback(currentData);
 };
-
-
-
 
 module.exports = Bst;
