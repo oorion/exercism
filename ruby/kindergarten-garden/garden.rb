@@ -1,29 +1,41 @@
 class Garden
-  attr_reader :converted_diagram, :students  # => nil
+  PLANTS = {"V" => :violets, "C" => :clover, "R" => :radishes, "G" => :grass}
+  STUDENTS = [
+               :alice,
+               :bob,
+               :charlie,
+               :david,
+               :eve,
+               :fred,
+               :ginny,
+               :harriet,
+               :ileana,
+               :joseph,
+               :kincaid,
+               :larry
+             ]
 
-  PLANTS = {'R' => :radishes, 'C' => :clover, 'G' => :grass, 'V' => :violets}  # => {"R"=>:radishes, "C"=>:clover, "G"=>:grass, "V"=>:violets}
+  attr_reader :students
 
-  def initialize(diagram, students=[])
-    @converted_diagram = convert_diagram(diagram)  # => [[:violets, :clover], [:radishes, :clover]]
-    @students = students                           # => []
+  def initialize(rows, students=STUDENTS)
+    @rows = rows
+    @students = students.map(&:downcase).sort
+    create_methods
   end
 
-  def convert_diagram(diagram)
-    diagram.split("\n").map do |plant_row|  # => ["VC", "RC"]
-      plant_row.chars.map do |plant|        # => ["V", "C"], ["R", "C"]
-        PLANTS[plant]                       # => :violets, :clover, :radishes, :clover
-      end                                   # => [:violets, :clover], [:radishes, :clover]
-    end                                     # => [[:violets, :clover], [:radishes, :clover]]
-  end
-
-  def alice
-    [converted_diagram[0][0], converted_diagram[0][1], converted_diagram[1][0], converted_diagram[1][1]]
-  end
-
-  def bob
-
+  def create_methods
+    students.each_with_index do |action, index|
+      self.class.send(:define_method, action) do
+        split_rows = @rows.split("\n")
+        converted_rows = split_rows.map {|row| row.split("").map {|plant| PLANTS[plant] }}
+        person_index = index * 2
+        [
+         converted_rows[0][person_index],
+         converted_rows[0][person_index + 1],
+         converted_rows[1][person_index],
+         converted_rows[1][person_index + 1]
+        ]
+      end
+    end
   end
 end
-
-garden = Garden.new("VC\nRC")  # => #<Garden:0x007fdf8a022418 @converted_diagram=[[:violets, :clover], [:radishes, :clover]], @students=[]>
-garden.converted_diagram       # => [[:violets, :clover], [:radishes, :clover]]
