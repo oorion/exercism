@@ -20,18 +20,25 @@ class Triplet
   end
 
   def self.where(min_factor: 1, max_factor: 1, sum: nil)
+    num_range = (min_factor..max_factor)
     unless sum
-      (min_factor..max_factor).to_a.combination(3).select do |a, b, c|
+      find_pythagorean_triplets(num_range) do |a, b, c|
         new(a, b, c).pythagorean?
-      end.map do |e|
-        Triplet.new(*e)
       end
     else
-      (min_factor..max_factor).to_a.combination(3).select do |a, b, c|
+      find_pythagorean_triplets(num_range) do |a, b, c|
         new(a, b, c).pythagorean? && new(a, b, c).sum == sum
-      end.map do |e|
-        Triplet.new(*e)
       end
+    end
+  end
+
+  private
+
+  def self.find_pythagorean_triplets(range)
+    range.to_a.combination(3).select do |a, b, c|
+      yield(a, b, c)
+    end.map do |e|
+      Triplet.new(*e)
     end
   end
 end
