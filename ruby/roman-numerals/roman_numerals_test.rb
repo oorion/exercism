@@ -12,33 +12,26 @@ class RomanTest < MiniTest::Unit::TestCase
   end
 
   def test_3
-    skip
     assert_equal 'III', 3.to_roman
   end
 
   def test_4
-    skip
     assert_equal 'IV', 4.to_roman
   end
 
   def test_5
-    skip
     assert_equal 'V', 5.to_roman
   end
 
   def test_6
-    skip
     assert_equal 'VI', 6.to_roman
   end
 
   def test_9
-    skip
     assert_equal 'IX', 9.to_roman
   end
 
-
   def test_27
-    skip
     assert_equal 'XXVII', 27.to_roman
   end
 
