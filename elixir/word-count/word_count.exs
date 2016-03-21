@@ -6,22 +6,18 @@ defmodule Words do
   """
   @spec count(String.t) :: map()
   def count(sentence) do
-    split_sentence = split_sentence(sentence)
-    words_and_count = convert_to_words_and_count(split_sentence)
-    Enum.into(words_and_count, %{})
+    sentence |> split_sentence |> convert_to_words_and_count |> Enum.into(%{})
   end
 
   def split_sentence(sentence) do
-    String.split(format_and_filter(sentence))
+    sentence |> format_and_filter |> String.split
   end
-  
+
   def format_and_filter(sentence) do
-    filtered_sentence = String.replace(sentence, ~r/[^\w -]+/u, "")
-    filtered_sentence = String.replace(filtered_sentence, ~r/_/, " ")
-    String.downcase(filtered_sentence)
+    sentence |> String.replace(~r/[^\w -]+/u, "") |> String.replace(~r/_/, " ") |> String.downcase
   end
 
   def convert_to_words_and_count(words) do
-    Enum.map(words, fn y -> {y, Enum.count(words, fn z -> z == y end)} end) 
+    Enum.map(words, fn y -> {y, Enum.count(words, fn z -> z == y end)} end)
   end
 end
