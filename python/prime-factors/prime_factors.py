@@ -3,7 +3,7 @@ def prime_factors(number):
     while True:
         for n in range(2, number + 1):
             if is_prime(n) and number % n == 0:
-                pf_list.append(n)
+                prime_factor_list.append(n)
                 number = number / n
                 break
         if number == 1:
