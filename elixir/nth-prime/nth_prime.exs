@@ -8,17 +8,15 @@ defmodule Prime do
     if count == 0 do
       raise Error
     end
-    prime_number_and_count = {2, 1}
-    find_nth_prime(prime_number_and_count, count)
+    first_prime = 2
+    find_nth_prime(first_prime, 1, count)
   end
 
-  def find_nth_prime(prime_number_and_count, desired_count) do
-    if elem(prime_number_and_count, 1) == desired_count do
-      elem(prime_number_and_count, 0)
+  def find_nth_prime(n, current_count, desired_count) do
+    if current_count == desired_count do
+      n
     else
-      current_prime = elem(prime_number_and_count, 0)
-      current_count = elem(prime_number_and_count, 1)
-      {find_next_prime(current_prime), current_count + 1} |> find_nth_prime(desired_count)
+      find_next_prime(n) |> find_nth_prime(current_count + 1, desired_count)
     end
   end
 
